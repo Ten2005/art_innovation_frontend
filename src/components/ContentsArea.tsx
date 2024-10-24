@@ -142,7 +142,7 @@ const ValidationField: React.FC<ValidationAreaProps> = ({
     const handleSaveToEnd = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://git.heroku.com/artinnovation.git/saveData', {
+            const response = await fetch('https://artinnovation.herokuapp.com/saveData', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
