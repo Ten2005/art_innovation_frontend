@@ -141,8 +141,11 @@ const ValidationField: React.FC<ValidationAreaProps> = ({
     };
     const handleSaveToEnd = async (e: React.FormEvent) => {
         e.preventDefault();
+        const baseURL = process.env.NODE_ENV === 'production'
+        ? 'https://artinnovation.herokuapp.com'
+        : 'http://127.0.0.1:8000';
         try {
-            const response = await fetch('https://artinnovation.herokuapp.com/saveData', {
+            const response = await fetch(`${baseURL}/saveData`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

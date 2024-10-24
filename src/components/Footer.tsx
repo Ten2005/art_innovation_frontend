@@ -53,7 +53,8 @@ const InputArea: React.FC<InputAreaProps> = ({
     const generateResponse = async (history: string[]) => {
         const baseURL = process.env.NODE_ENV === 'production'
         ? 'https://artinnovation.herokuapp.com'
-        : 'http://localhost:3000';
+        : 'http://127.0.0.1:8000';
+        console.log(`${baseURL}/reply/${choicedModel}`);
         try {
             const response = await fetch(`${baseURL}/reply/${choicedModel}`, {
             method: "POST",
