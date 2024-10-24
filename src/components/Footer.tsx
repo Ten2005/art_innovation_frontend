@@ -52,7 +52,7 @@ const InputArea: React.FC<InputAreaProps> = ({
 
     const generateResponse = async (history: string[]) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/reply/${choicedModel}`, {
+            const response = await fetch(`https://git.heroku.com/artinnovation.git/reply/${choicedModel}`, {
             method: "POST",
             headers: {
                 "Content-Type":"application/json",
