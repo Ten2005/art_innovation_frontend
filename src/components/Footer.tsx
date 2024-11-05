@@ -78,13 +78,13 @@ const InputArea: React.FC<InputAreaProps> = ({
         }
     const handleSubmit = async (e: React.FormEvent, inputValue: string) => {
         e.preventDefault();
+        setInputValue("");
         if (appState == "first") { setAppState(choicedModel) }
         const postHistory = [...history, inputValue];
         console.log(postHistory);
         const reply = await generateResponse(postHistory);
         setHistory((prev) => [...prev, inputValue]);
         setHistory((prev) => [...prev, reply.response]);
-        setInputValue("");
 
     }
     return (
