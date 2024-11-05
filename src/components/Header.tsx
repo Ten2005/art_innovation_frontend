@@ -7,8 +7,8 @@ interface HeaderProps {
     history: string[];
 }
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseKey = import.meta.env.VITE_SUPABASE_KEY
+const supabaseUrl = "https://lzvspiadsxritlgcrcui.supabase.co"
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6dnNwaWFkc3hyaXRsZ2NyY3VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk1OTM1ODUsImV4cCI6MjA0NTE2OTU4NX0.n4VWiDpk0Egh3fiPzc5EuUDnNbzhLqFHt3EhXbxzIHY"
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 const Header: React.FC<HeaderProps> = ({
