@@ -24,7 +24,7 @@ const ContentsArea: React.FC<ContentsAreaProps> = ({
             ? <Description setChoicedModel={setChoicedModel} />
             : <></>
             }
-            {appState == "consultation" || appState == "absurdity" || appState == "validation"
+            {!(appState == "first")
             ? <TextField history={history} appState={appState} />
             : <></>
             }
@@ -49,15 +49,19 @@ interface DescriptionProps {
 const Description: React.FC<DescriptionProps> = ({ setChoicedModel }) => {
     return(
         <Tabs
-        defaultValue="相談AI"
+        defaultValue="会話AI"
         className="max-w-96 p-4 mx-auto">
         <TabsList>
-            <TabsTrigger
+            {/* <TabsTrigger
             onClick={() => setChoicedModel("consultation")}
             value="相談AI">相談AI</TabsTrigger>
             <TabsTrigger
             onClick={() => setChoicedModel("absurdity")}
-            value="不条理AI">不条理AI</TabsTrigger>
+            value="不条理AI">不条理AI</TabsTrigger> */}
+
+            <TabsTrigger
+            onClick={() => setChoicedModel("latest")}
+            value="会話AI">会話AI</TabsTrigger>
         </TabsList>
         <TabsContent
         className="text-start"
@@ -65,6 +69,9 @@ const Description: React.FC<DescriptionProps> = ({ setChoicedModel }) => {
         <TabsContent
         className="text-start"
         value="不条理AI">不条理AIは不条理小説を元に作成した、不条理な発言をする会話システムです。</TabsContent>
+        <TabsContent
+        className="text-start"
+        value="会話AI">生成AIによる日常会話に適したチャットボットです。</TabsContent>
         </Tabs>
     )
 }
