@@ -71,7 +71,10 @@ const Description: React.FC<DescriptionProps> = ({ setChoicedModel }) => {
         value="不条理AI">不条理AIは不条理小説を元に作成した、不条理な発言をする会話システムです。</TabsContent>
         <TabsContent
         className="text-start"
-        value="会話AI">生成AIによる日常会話に適したチャットボットです。</TabsContent>
+        value="会話AI">
+            {/* 生成AIによる日常会話に適したチャットボットです。 */}
+            下の入力フィールドに文章を入れて「送信」を押してください。
+        </TabsContent>
         </Tabs>
     )
 }

@@ -14,7 +14,7 @@ const OptionalScreen: React.FC<OptionalScreenProps> = ({ setIsOptionalScreen }) 
                 <p className='my-5 text-start'>
                     <br />初めに、チャットボットとの会話を行います。右下の「開始する」ボタンを押すと会話画面が自動で表示されます。ここでは、自由に会話をしてください。
                     <br /><br />次に、「会話を終了」ボタンを押すと別のページに移動します。指示が書かれているので、それに従ってください。
-                    <br />表示される絵について物語を考えるTATを行なっていただきます。
+                    <br />表示される絵について物語を考える課題を行なっていただきます。
                 </p>
             </div>
             <Button
