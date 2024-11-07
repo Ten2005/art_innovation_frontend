@@ -1,5 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import React,{ useState } from "react";
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = "https://lzvspiadsxritlgcrcui.supabase.co"
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6dnNwaWFkc3hyaXRsZ2NyY3VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk1OTM1ODUsImV4cCI6MjA0NTE2OTU4NX0.n4VWiDpk0Egh3fiPzc5EuUDnNbzhLqFHt3EhXbxzIHY"
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 interface ContentsAreaProps {
     appState: string;
@@ -108,12 +113,12 @@ import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
-    CardDescription,
+    // CardDescription,
     CardFooter,
-    CardHeader,
-    CardTitle,
+    // CardHeader,
+    // CardTitle,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+// import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
     Select,
@@ -130,105 +135,168 @@ interface ValidationAreaProps {
     setHistory: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
+// const ValidationField: React.FC<ValidationAreaProps> = ({
+//     setAppState,
+//     history,
+//     setHistory,
+//     choicedModel,
+// }) => {
+//     const [name, setName] = useState("");
+//     const initialValues = Array.from({ length: 15 }, (_, i) => ({ [i + 1]: "3" }))
+//     .reduce((acc, cur) => ({ ...acc, ...cur }), {});
+//     const [values, setValues] = useState<{ [key: string]: string }>({ ...initialValues });
+//     const valuesInt = Object.values(values);
+//     const [comment, setComment] = useState("");
+
+//     const handleSelectChange = (id: string, value: string) => {
+//         setValues((prevValues) => ({
+//             ...prevValues,
+//             [id]: value,
+//         }))
+//     };
+//     const handleSaveToEnd = async (e: React.FormEvent) => {
+//         e.preventDefault();
+//         const baseURL = process.env.NODE_ENV === 'production'
+//         ? 'https://artinnovation-6c8774b7024e.herokuapp.com'
+//         : 'http://127.0.0.1:8000';
+//         try {
+//             const response = await fetch(`${baseURL}/saveData`, {
+//                 method: "POST",
+//                 headers: {
+//                     "Content-Type": "application/json",
+//                 },
+//                 body: JSON.stringify({
+//                     model: choicedModel,
+//                     history: history,
+//                     name: name,
+//                     value: valuesInt,
+//                     comment: comment
+//                 }),
+//             });
+
+//             if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//             }
+//             console.log('Success:', response);
+//         } catch (error) {
+//             console.error('Error', error);
+//         }
+//         setAppState("first");
+//         setHistory([]);
+//     }
+
+//     const questions = Array.from({ length: 15 }, (_, i) => ({
+//     id: (i + 1).toString(),
+//     question: `質問${i + 1}`
+//     }));
+//     return(
+//         <Card className="w-full max-w-96 mx-auto">
+//         <CardHeader>
+//             <CardTitle>会話の評価</CardTitle>
+//             <CardDescription>評価についての注意事項</CardDescription>
+//         </CardHeader>
+//         <CardContent>
+//             <form>
+//             <div className="grid w-full items-center gap-4">
+//                 <div className="flex flex-col space-y-1.5">
+//                 <Label htmlFor="name">Name</Label>
+//                 <Input
+//                 id="name"
+//                 placeholder="your name"
+//                 value={name}
+//                 onChange={(e) => setName(e.target.value)} />
+//                 </div>
+//             {questions.map((question) => (
+//                 <div key={question.id} className="flex flex-col space-y-1.5">
+//                     <Label htmlFor="framework">{question.question}</Label>
+//                     <Select
+//                     onValueChange={(value)=>handleSelectChange(question.id, value)}
+//                     defaultValue="3"
+//                     >
+//                         <SelectTrigger id={question.id}>
+//                         <SelectValue />
+//                         </SelectTrigger>
+//                         <SelectContent position="popper">
+//                         <SelectItem value="1">1</SelectItem>
+//                         <SelectItem value="2">2</SelectItem>
+//                         <SelectItem value="3">3</SelectItem>
+//                         <SelectItem value="4">4</SelectItem>
+//                         <SelectItem value="5">5</SelectItem>
+//                         </SelectContent>
+//                     </Select>
+//                 </div>
+//             ))}
+//                 <div className="flex flex-col space-y-1.5">
+//                 <Label htmlFor="comment">comment</Label>
+//                 <Input
+//                 id="comment"
+//                 placeholder="write comment"
+//                 value={comment}
+//                 onChange={(e) => setComment(e.target.value)} />
+//                 </div>
+//             </div>
+//             </form>
+//         </CardContent>
+//         <CardFooter className="flex justify-end">
+//             <Button onClick={handleSaveToEnd}>保存して終了</Button>
+//         </CardFooter>
+//         </Card>
+//     )
+// }
+
 const ValidationField: React.FC<ValidationAreaProps> = ({
-    setAppState,
+    // setAppState,
     history,
     setHistory,
     choicedModel,
 }) => {
-    const [name, setName] = useState("");
-    const initialValues = Array.from({ length: 15 }, (_, i) => ({ [i + 1]: "3" }))
-    .reduce((acc, cur) => ({ ...acc, ...cur }), {});
-    const [values, setValues] = useState<{ [key: string]: string }>({ ...initialValues });
-    const valuesInt = Object.values(values);
-    const [comment, setComment] = useState("");
+    const [values, setValues] = useState<string>("3");
+    const valueInt = Object.values(values);
 
-    const handleSelectChange = (id: string, value: string) => {
-        setValues((prevValues) => ({
-            ...prevValues,
-            [id]: value,
-        }))
+    const handleSelectChange = (value: string) => {
+        setValues(value)
     };
     const handleSaveToEnd = async (e: React.FormEvent) => {
         e.preventDefault();
-        const baseURL = process.env.NODE_ENV === 'production'
-        ? 'https://artinnovation-6c8774b7024e.herokuapp.com'
-        : 'http://127.0.0.1:8000';
-        try {
-            const response = await fetch(`${baseURL}/saveData`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    model: choicedModel,
-                    history: history,
-                    name: name,
-                    value: valuesInt,
-                    comment: comment
-                }),
-            });
+        // TATと接続する時の処理
+        const { data, error } = await supabase
+        .from('ai_talk_basic')
+        .insert([
+            {history: history,
+            model: choicedModel,
+            value: valueInt} // 保存するデータを指定
+        ])
 
-            if (!response.ok) {
-            throw new Error('Network response was not ok');
-            }
-            console.log('Success:', response);
-        } catch (error) {
-            console.error('Error', error);
+        if (error) {
+            console.error('Error inserting data:', error)
+        } else {
+            console.log('Data inserted:', data)
         }
-        setAppState("first");
+
+        window.location.href = "https://tat-app.vercel.app/";
         setHistory([]);
     }
-
-    const questions = Array.from({ length: 15 }, (_, i) => ({
-    id: (i + 1).toString(),
-    question: `質問${i + 1}`
-    }));
     return(
         <Card className="w-full max-w-96 mx-auto">
-        <CardHeader>
-            <CardTitle>会話の評価</CardTitle>
-            <CardDescription>評価についての注意事項</CardDescription>
-        </CardHeader>
         <CardContent>
             <form>
-            <div className="grid w-full items-center gap-4">
-                <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                id="name"
-                placeholder="your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)} />
-                </div>
-            {questions.map((question) => (
-                <div key={question.id} className="flex flex-col space-y-1.5">
-                    <Label htmlFor="framework">{question.question}</Label>
-                    <Select
-                    onValueChange={(value)=>handleSelectChange(question.id, value)}
-                    defaultValue="3"
-                    >
-                        <SelectTrigger id={question.id}>
-                        <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent position="popper">
-                        <SelectItem value="1">1</SelectItem>
-                        <SelectItem value="2">2</SelectItem>
-                        <SelectItem value="3">3</SelectItem>
-                        <SelectItem value="4">4</SelectItem>
-                        <SelectItem value="5">5</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </div>
-            ))}
-                <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="comment">comment</Label>
-                <Input
-                id="comment"
-                placeholder="write comment"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)} />
-                </div>
+            <div className="flex flex-col space-y-1.5 mt-10">
+                <Label htmlFor="framework">AIと再び会話をしたいと感じましたか？</Label>
+                <Select
+                onValueChange={(value)=>handleSelectChange(value)}
+                defaultValue="3"
+                >
+                    <SelectTrigger>
+                    <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                    <SelectItem value="1">1</SelectItem>
+                    <SelectItem value="2">2</SelectItem>
+                    <SelectItem value="3">3</SelectItem>
+                    <SelectItem value="4">4</SelectItem>
+                    <SelectItem value="5">5</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
             </form>
         </CardContent>
