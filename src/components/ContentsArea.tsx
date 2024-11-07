@@ -273,7 +273,7 @@ const ValidationField: React.FC<ValidationAreaProps> = ({
             console.log('Data inserted:', data)
         }
 
-        window.location.href = "https://tat-app.vercel.app/";
+        window.location.href = "https://create-story-app-mbff.vercel.app/";
         setHistory([]);
     }
     return(
